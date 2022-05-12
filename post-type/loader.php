@@ -12,23 +12,23 @@ if ( ! class_exists( 'DT_Module_Base' ) ) {
 // /**
 //  * Add any modules required or added for the post type
 //  */
-// add_filter( 'dt_post_type_modules', function( $modules ){
+add_filter( 'dt_post_type_modules', function( $modules ){
 
-//     /**
-//      * @todo Update the starter in the array below 'starter_base'. Follow the pattern.
-//      * @todo Add more modules by adding a new array element. i.e. 'starter_base_two'.
-//      */
-//     $modules["starter_base"] = [
-//         "name" => __( "Starter", "disciple-tools-plugin-starter-template" ),
-//         "enabled" => true,
-//         "locked" => true,
-//         "prerequisites" => [ "contacts_base" ],
-//         "post_type" => "meetings",
-//         "description" => __( "Default starter functionality", "disciple-tools-plugin-starter-template" )
-//     ];
-
-//     return $modules;
-// }, 20, 1 );
+    /**
+     * @todo Update the starter in the array below 'starter_base'. Follow the pattern.
+     * @todo Add more modules by adding a new array element. i.e. 'starter_base_two'.
+     */
+    $modules["meetings_base"] = [
+        "name" => __( "Meetings", "disciple-tools-meetings" ),
+        "enabled" => true,
+        "locked" => true,
+        "prerequisites" => [ "contacts_base" ],
+        "post_type" => "meetings",
+        "description" => __( "Default starter functionality", "disciple-tools-meetings" )
+    ];
+    dt_write_log($modules);
+    return $modules;
+}, 20, 1 );
 
 require_once 'module-base.php';
 Disciple_Tools_Meetings_Base::instance();

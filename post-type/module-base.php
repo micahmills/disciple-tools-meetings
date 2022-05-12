@@ -443,7 +443,7 @@ class Disciple_Tools_Meetings_Base extends DT_Module_Base {
      */
     public function dt_details_additional_tiles( $tiles, $post_type = "" ){
         if ( $post_type === $this->post_type ){
-            $tiles["connections"] = [ "label" => __( "Connections", 'disciple-tools-meetings' ) ];
+            // $tiles["connections"] = [ "label" => __( "Connections", 'disciple-tools-meetings' ) ];
             $tiles["other"] = [ "label" => __( "Other", 'disciple-tools-meetings' ) ];
         }
         return $tiles;
