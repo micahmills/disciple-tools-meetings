@@ -41,7 +41,7 @@ class Disciple_Tools_Meetings_Base extends DT_Module_Base {
         //setup tiles and fields
         add_filter( 'dt_custom_fields_settings', [ $this, 'dt_custom_fields_settings' ], 10, 2 );
         add_filter( 'dt_details_additional_tiles', [ $this, 'dt_details_additional_tiles' ], 10, 2 );
-        add_action( 'dt_details_additional_section', [ $this, 'dt_details_additional_section' ], 20, 2 );
+        // add_action( 'dt_details_additional_section', [ $this, 'dt_details_additional_section' ], 20, 2 );
         add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ], 99 );
         add_filter( 'dt_get_post_type_settings', [ $this, 'dt_get_post_type_settings' ], 20, 2 );
 
@@ -468,6 +468,7 @@ class Disciple_Tools_Meetings_Base extends DT_Module_Base {
             </div>
 
         <?php }
+
     }
 
     /**
