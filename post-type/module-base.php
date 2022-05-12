@@ -179,7 +179,7 @@ class Disciple_Tools_Meetings_Base extends DT_Module_Base {
                 "type" => "connection",
                 "p2p_direction" => "to",
                 "post_type" => "meetings",
-                "tile" => "other",
+                "tile" => "meetings",
                 "p2p_key" => "meetings_to_groups"
             ];
         }

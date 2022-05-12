@@ -26,7 +26,6 @@ add_filter( 'dt_post_type_modules', function( $modules ){
         "post_type" => "meetings",
         "description" => __( "Default starter functionality", "disciple-tools-meetings" )
     ];
-    dt_write_log($modules);
     return $modules;
 }, 20, 1 );
 
