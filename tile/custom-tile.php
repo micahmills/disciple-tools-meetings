@@ -15,6 +15,68 @@ class Disciple_Tools_Meetings_Tile
         add_filter( 'dt_details_additional_tiles', [ $this, "dt_details_additional_tiles" ], 10, 2 );
         add_filter( "dt_custom_fields_settings", [ $this, "dt_custom_fields" ], 1, 2 );
         add_action( "dt_details_additional_section", [ $this, "dt_add_section" ], 30, 2 );
+
+        //svelte/Vite Stuff
+        // dist subfolder - defined in vite.config.json
+        define('DIST_DEF', 'dist');
+
+        // defining some base urls and paths
+        define('DIST_URI', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'members-list-component/dist' );
+        define('DIST_PATH', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'members-list-component/dist' );
+
+        // js enqueue settings
+        define('JS_DEPENDENCY', ""); // array('jquery') as example
+        define('JS_LOAD_IN_FOOTER', true); // load scripts in footer?
+        // deafult server address, port and entry point can be customized in vite.config.json
+        define('VITE_SERVER', 'http://localhost:3000');
+        define('VITE_ENTRY_POINT', '/src/main.js');
+
+        // enqueue hook
+        add_action( 'wp_enqueue_scripts', function() {
+//This should be commented out for production
+$IS_VITE_DEVELOPMENT = true;
+            if ( $IS_VITE_DEVELOPMENT === true) {
+                dt_write_log("HEHEHEH");
+                // insert hmr into head for live reload
+                function vite_head_module_hook() {
+                    echo '<script type="module" crossorigin src="' . constant( 'VITE_SERVER' ) . constant( 'VITE_ENTRY_POINT' ) . '"></script>';
+                }
+                add_action('wp_head', 'vite_head_module_hook');
+
+            } else {
+
+                // production version, 'npm run build' must be executed in order to generate assets
+                // ----------
+
+                // read manifest.json to figure out what to enqueue
+                $manifest = json_decode( file_get_contents( trailingslashit( plugin_dir_url( __DIR__ ) ) . 'members-list-component/dist/manifest.json' ), true ) ;
+
+                // is ok
+                if (is_array($manifest)) {
+                    // get first key, by default is 'main.js' but it can change
+                    $manifest_key = array_keys($manifest);
+                    if (isset($manifest_key[0])) {
+
+                        // enqueue CSS files
+                        foreach(@$manifest[$manifest_key[0]]['css'] as $css_file) {
+                            wp_enqueue_style( 'main', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'members-list-component/dist/' . $css_file );
+                        }
+
+                        // enqueue main JS file
+                        $js_file = @$manifest[$manifest_key[0]]['file'];
+                        if ( ! empty($js_file)) {
+                            wp_enqueue_script( 'main', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'members-list-component/dist/' . $js_file, '', '', true);
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+});
+
     }
 
     /**
@@ -118,7 +180,7 @@ class Disciple_Tools_Meetings_Tile
         /**
          * @todo set the post type and the section key that you created in the dt_details_additional_tiles() function
          */
-        if ( $post_type === "meetings" && $section === "disciple_tools_meetings-tile" ){
+        if ( $post_type === "groups" && $section === "disciple_tools_meetings" ){
             /**
              * These are two sets of key data:
              * $this_post is the details for this specific post
@@ -134,13 +196,10 @@ class Disciple_Tools_Meetings_Tile
             @todo you can add HTML content to this section.
             -->
 
-            <div class="cell small-12 medium-4">
-                <!-- @todo remove this notes section-->
-                <strong>You can do a number of customizations here.</strong><br><br>
-                See post types and field keys and values: <a href="<?php echo esc_html( admin_url( "admin.php?page=dt_utilities&tab=fields" ) ); ?>" target="_blank">click here</a>
-            </div>
+            <div id="app"></div>
 
         <?php }
     }
+
 }
 Disciple_Tools_Meetings_Tile::instance();
