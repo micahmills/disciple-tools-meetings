@@ -6,7 +6,6 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
  * Load the core post type hooks into the Disciple.Tools system
  */
 class Disciple_Tools_Meetings_Base  {
-
     /**
      * Define post type variables
      * @var string
@@ -32,7 +31,6 @@ class Disciple_Tools_Meetings_Base  {
         add_filter( 'dt_set_roles_and_permissions', [ $this, 'dt_set_roles_and_permissions' ], 20, 1 ); //after contacts
 
         //setup tiles and fields
-        add_action( 'p2p_init', [ $this, 'p2p_init' ] );
         add_filter( 'dt_custom_fields_settings', [ $this, 'dt_custom_fields_settings' ], 10, 2 );
         add_filter( 'dt_details_additional_tiles', [ $this, 'dt_details_additional_tiles' ], 10, 2 );
         add_action( 'dt_details_additional_section', [ $this, 'dt_details_additional_section' ], 20, 2 );
@@ -49,13 +47,32 @@ class Disciple_Tools_Meetings_Base  {
         //list
         add_filter( "dt_user_list_filters", [ $this, "dt_user_list_filters" ], 10, 2 );
         add_filter( "dt_filter_access_permissions", [ $this, "dt_filter_access_permissions" ], 20, 2 );
-
+        add_filter( "dt_capabilities", [ $this, "dt_capabilities" ], 100, 1 );
     }
 
     public function after_setup_theme(){
         if ( class_exists( 'Disciple_Tools_Post_Type_Template' ) ) {
             new Disciple_Tools_Post_Type_Template( $this->post_type, $this->single_name, $this->plural_name );
         }
+    }
+
+    /**
+     * Adding capability meta.
+     */
+    public function dt_capabilities( $capabilities ){
+        $capabilities['access_meetings'] = [
+            'source' => 'Meetings',
+            'description' => 'The user can view meetings.'
+        ];
+        $capabilities['update_meetings'] = [
+            'source' => 'Meetings',
+            'description' => 'The user can edit existing existing.'
+        ];
+        $capabilities['create_meetings'] = [
+            'source' => 'Meetings',
+            'description' => 'The user can create meetings.'
+        ];
+        return $capabilities;
     }
 
     /**
@@ -66,6 +83,7 @@ class Disciple_Tools_Meetings_Base  {
 
         // if the user can access contact they also can access this post type
         foreach ( $expected_roles as $role => $role_value ){
+
             if ( isset( $expected_roles[$role]["permissions"]['access_groups'] ) && $expected_roles[$role]["permissions"]['access_groups'] ){
                 $expected_roles[$role]["permissions"]["access_meetings"] = true;
                 $expected_roles[$role]["permissions"]["update_meetings"] = true;
@@ -84,14 +102,27 @@ class Disciple_Tools_Meetings_Base  {
             $fields["date"] = [
                 "name" => "Date",
                 "type" => "date",
-                "tile" => "status",
+                "tile" => "details",
                 "in_create_form" => true
             ];
             $fields["meeting_notes"] = [
                 "name" => "Meeting Notes",
-                "type" => "text",
+                "type" => "textarea",
                 "tile" => "details",
-                "in_create_form" => true
+            ];
+            $fields['type'] = [
+                "name" => "Meeting Type",
+                "type" => "key_select",
+                "tile" => "details",
+                "in_create_form" => true,
+                "select_cannot_be_empty" => true,
+                "default" => apply_filters("disciple_tools_meetings_types", [
+                        "default" => [
+                            "label" => __( 'Default', 'disciple_tools_meetings' ),
+                            "description" => __( 'General purpose', 'disciple_tools_meetings' )
+                        ]
+                    ]
+                ),
             ];
             $fields["contacts"] = [
                 "name" => "Contacts",
@@ -100,6 +131,24 @@ class Disciple_Tools_Meetings_Base  {
                 "post_type" => "contacts",
                 "tile" => "other",
                 "p2p_key" => "meetings_to_contacts",
+            ];
+            $fields['assigned_to'] = [
+                'name'        => 'Assigned To',
+                'type'        => 'user_select',
+                'default'     => '',
+                'tile'        => 'status',
+                'icon' => get_template_directory_uri() . "/dt-assets/images/assigned-to.svg?v=2",
+                "show_in_table" => 25,
+                "custom_display" => false,
+                "in_create_form" => true
+            ];
+            $fields['leaders'] = [
+                "name" => "Leaders",
+                "type" => "connection",
+                "p2p_direction" => "to",
+                "post_type" => "contacts",
+                "tile" => "status",
+                "p2p_key" => "meetings_to_leaders"
             ];
             $fields["groups"] = [
                 "name" => "Groups",
@@ -127,6 +176,15 @@ class Disciple_Tools_Meetings_Base  {
                 "tile" => "other",
                 "p2p_key" => "meetings_to_contacts"
             ];
+
+            $fields['meetings_led'] = [
+                "name" => "Leader of meetings",
+                "type" => "connection",
+                "p2p_direction" => "from",
+                "post_type" => "meetings",
+                "tile" => "other",
+                "p2p_key" => "meetings_to_leaders"
+            ];
         }
         if ( $post_type === "groups" ){
             $fields["meetings"] = [
@@ -140,33 +198,6 @@ class Disciple_Tools_Meetings_Base  {
         }
 
         return $fields;
-    }
-
-    /**
-     * Documentation
-     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/fields.md#declaring-connection-fields
-     */
-    public function p2p_init(){
-        /**
-         * Connection to contacts
-         */
-        p2p_register_connection_type(
-            [
-                'name'           => $this->post_type."_to_contacts",
-                'from'           => $this->post_type,
-                'to'             => 'contacts',
-            ]
-        );
-        /**
-         * Connection to groups
-         */
-        p2p_register_connection_type(
-            [
-                'name'           => $this->post_type."_to_groups",
-                'from'           => $this->post_type,
-                'to'             => 'groups',
-            ]
-        );
     }
 
     /**
