@@ -394,20 +394,20 @@ class Disciple_Tools_Meetings_Base extends DT_Module_Base {
         // /**
         //  * @todo this adds connection to groups. remove if not needed.
         //  */
-        // if ( $post_type === "groups" ){
-        //     $fields[$this->post_type] = [
-        //         "name" => $this->plural_name,
-        //         "description" => '',
-        //         "type" => "connection",
-        //         "post_type" => $this->post_type,
-        //         "p2p_direction" => "from",
-        //         "p2p_key" => $this->post_type."_to_groups",
-        //         "tile" => "other",
-        //         'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
-        //         'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-group.svg",
-        //         "show_in_table" => 35
-        //     ];
-        // }
+        if ( $post_type === "groups" ){
+            $fields[$this->post_type] = [
+                "name" => $this->plural_name,
+                "description" => '',
+                "type" => "connection",
+                "post_type" => $this->post_type,
+                "p2p_direction" => "from",
+                "p2p_key" => $this->post_type."_to_groups",
+                "tile" => "other",
+                'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
+                'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-group.svg",
+                "show_in_table" => 35
+            ];
+        }
         return $fields;
     }
 

@@ -36,7 +36,6 @@ class Disciple_Tools_Meetings_Tile
 //This should be commented out for production
 $IS_VITE_DEVELOPMENT = true;
             if ( $IS_VITE_DEVELOPMENT === true) {
-                dt_write_log("HEHEHEH");
                 // insert hmr into head for live reload
                 function vite_head_module_hook() {
                     echo '<script type="module" crossorigin src="' . constant( 'VITE_SERVER' ) . constant( 'VITE_ENTRY_POINT' ) . '"></script>';
@@ -120,8 +119,8 @@ $IS_VITE_DEVELOPMENT = true;
             /**
              * This is an example of a text field
              */
-            $fields['disciple_tools_meetings_text'] = [
-                'name'        => __( 'Text', 'disciple-tools-meetings' ),
+            $fields['disciple_tools_meetings_description'] = [
+                'name'        => __( 'Meeting Description', 'disciple-tools-meetings' ),
                 'description' => _x( 'Text', 'Optional Documentation', 'disciple-tools-meetings' ),
                 'type'        => 'text',
                 'default'     => '',
