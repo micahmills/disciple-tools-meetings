@@ -140,7 +140,7 @@ class Disciple_Tools_Meetings_Tile
 
 
             <div class="reveal" id="create-meeting-modal" data-reveal data-reset-on-close>
-            <h3 class="section-header">Create A Meetings</h3>
+            <h3 class="section-header"><?php  esc_html_e( "Create A Meetings", 'disciple-tools-meetings' ) ?></h3>
                 <div class="cell small-12 medium-4">
                     <div class="members-section" style="margin-bottom:10px">
                     <div class="attendee-checklist">
@@ -148,7 +148,7 @@ class Disciple_Tools_Meetings_Tile
                 </div>
                 </div>
 
-                <div class="section-subheader">Meeting Date</div>
+                <div class="section-subheader"><?php esc_html_e( "Meeting Date", 'disciple-tools-meetings' ) ?></div>
                 <div class="disciple_tools_meeting_date input-group">
                     <input id="disciple_tools_meeting_date" class="input-group-field dt_date_picker" type="text" autocomplete="off" value="">
                     <div class="input-group-button">
@@ -156,13 +156,13 @@ class Disciple_Tools_Meetings_Tile
                     </div>
                 </div>
 
-                <div class="section-subheader">Meeting Topic</div>
+                <div class="section-subheader"><?php esc_html_e( "Meeting Topic", 'disciple-tools-meetings' ) ?></div>
                 <input id="disciple_tools_meeting_topic" type="text" class="" value="">
 
-                <div class="section-subheader">Meeting Notes</div>
+                <div class="section-subheader"><?php esc_html_e( "Meeting Notes", 'disciple-tools-meetings' ) ?></div>
                 <textarea id="disciple_tools_meeting_notes" class="textarea"></textarea>
 
-                <div class="section-subheader">Meeting Type</div>
+                <div class="section-subheader"><?php esc_html_e( "Meeting Type", 'disciple-tools-meetings' ) ?></div>
                 <select class="" id="disciple_tools_meeting_type" style="">
                     <option value="default">Default</option> <!-- NEEDS RENDERED SERVER SIDE -->
                     <option value="default2">Default2</option> <!-- NEEDS RENDERED SERVER SIDE -->

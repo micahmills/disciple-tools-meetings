@@ -104,7 +104,7 @@ class Disciple_Tools_Meetings_Base  {
     public function dt_custom_fields_settings( $fields, $post_type ){
         if ( $post_type === $this->post_type ){
             $fields["date"] = [
-                "name" => "Date",
+                "name" => __( "Date", 'disciple-tools-meetings' ),
                 "type" => "date",
                 "tile" => "disciple_tools_meetings",
                 "in_create_form" => true
@@ -123,7 +123,7 @@ class Disciple_Tools_Meetings_Base  {
                 "tile" => "disciple_tools_meetings",
             ];
             $fields['type'] = [
-                "name" => "Meeting Type",
+                "name" => __( "Meeting Type", 'disciple-tools-meetings' ),
                 "type" => "key_select",
                 "tile" => "disciple_tools_meetings",
                 "in_create_form" => true,
@@ -137,7 +137,7 @@ class Disciple_Tools_Meetings_Base  {
                 ),
             ];
             $fields["contacts"] = [
-                "name" => "Attendees",
+                "name" => __( "Attendees", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "contacts",
@@ -145,7 +145,7 @@ class Disciple_Tools_Meetings_Base  {
                 "p2p_key" => "meetings_to_contacts",
             ];
             $fields['assigned_to'] = [
-                'name'        => 'Assigned To',
+                'name'        => __( "Assigned To", 'disciple-tools-meetings' ),
                 'type'        => 'user_select',
                 'default'     => '',
                 'tile'        => 'status',
@@ -155,7 +155,7 @@ class Disciple_Tools_Meetings_Base  {
                 "in_create_form" => true
             ];
             $fields['leaders'] = [
-                "name" => "Leaders",
+                "name" => __( "Leaders", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "to",
                 "post_type" => "contacts",
@@ -163,7 +163,7 @@ class Disciple_Tools_Meetings_Base  {
                 "p2p_key" => "meetings_to_leaders"
             ];
             $fields["groups"] = [
-                "name" => "Group",
+                "name" => __( "Group", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "groups",
@@ -199,7 +199,7 @@ class Disciple_Tools_Meetings_Base  {
         }
         if ( $post_type === "contacts" ){
             $fields["meetings"] = [
-                "name" => "Meetings",
+                "name" => __( "Meetings", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "to",
                 "post_type" => "meetings",
@@ -208,7 +208,7 @@ class Disciple_Tools_Meetings_Base  {
             ];
 
             $fields['meetings_led'] = [
-                "name" => "Leader of meetings",
+                "name" => __( "Leader of meetings", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "meetings",
@@ -218,7 +218,7 @@ class Disciple_Tools_Meetings_Base  {
         }
         if ( $post_type === "groups" ){
             $fields["meetings"] = [
-                "name" => "Meetings",
+                "name" => __( "Meetings", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "to",
                 "post_type" => "meetings",
@@ -226,7 +226,7 @@ class Disciple_Tools_Meetings_Base  {
                 "p2p_key" => "meetings_to_groups"
             ];
             $fields["date"] = [
-                "name" => "Meeting Date",
+                "name" => __( "Meetings Date", 'disciple-tools-meetings' ),
                 "type" => "date",
                 "tile" => "disciple_tools_meetings",
                 "in_create_form" => true
@@ -245,7 +245,7 @@ class Disciple_Tools_Meetings_Base  {
                 "tile" => "disciple_tools_meetings",
             ];
             $fields['type'] = [
-                "name" => "Meeting Type",
+                "name" => __( "Meetings Type", 'disciple-tools-meetings' ),
                 "type" => "key_select",
                 "tile" => "disciple_tools_meetings",
                 "in_create_form" => true,
@@ -259,7 +259,7 @@ class Disciple_Tools_Meetings_Base  {
                 ),
             ];
             $fields["contacts"] = [
-                "name" => "Attendees",
+                "name" => __( "Attendees", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "contacts",
