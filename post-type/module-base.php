@@ -106,7 +106,7 @@ class Disciple_Tools_Meetings_Base  {
             $fields["date"] = [
                 "name" => "Date",
                 "type" => "date",
-                "tile" => "details",
+                "tile" => "disciple_tools_meetings",
                 "in_create_form" => true
             ];
             $fields['meetings_topic'] = [
@@ -175,7 +175,7 @@ class Disciple_Tools_Meetings_Base  {
                 'description' => _x( 'A useful way to group related items and can help group contacts associated with noteworthy characteristics. e.g. business owner, sports lover. The contacts can also be filtered using these tags.', 'Optional Documentation', 'disciple_tools' ),
                 'type'        => 'tags',
                 'default'     => [],
-                'tile'        => 'other',
+                'tile'        => 'disciple_tools_meetings',
                 'icon' => get_template_directory_uri() . "/dt-assets/images/tag.svg",
             ];
 
@@ -203,7 +203,7 @@ class Disciple_Tools_Meetings_Base  {
                 "type" => "connection",
                 "p2p_direction" => "to",
                 "post_type" => "meetings",
-                "tile" => "other",
+                "tile" => "disciple_tools_meetings",
                 "p2p_key" => "meetings_to_contacts"
             ];
 
@@ -212,7 +212,7 @@ class Disciple_Tools_Meetings_Base  {
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "meetings",
-                "tile" => "other",
+                "tile" => "disciple_tools_meetings",
                 "p2p_key" => "meetings_to_leaders"
             ];
         }
@@ -263,7 +263,7 @@ class Disciple_Tools_Meetings_Base  {
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "contacts",
-                "tile" => "details",
+                "tile" => "disciple_tools_meetings",
                 "p2p_key" => "meetings_to_contacts",
             ];
         }

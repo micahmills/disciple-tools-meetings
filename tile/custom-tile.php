@@ -140,6 +140,7 @@ class Disciple_Tools_Meetings_Tile
 
 
             <div class="reveal" id="create-meeting-modal" data-reveal data-reset-on-close>
+            <h3 class="section-header">Create A Meetings</h3>
                 <div class="cell small-12 medium-4">
                     <div class="members-section" style="margin-bottom:10px">
                     <div class="attendee-checklist">
@@ -189,14 +190,13 @@ class Disciple_Tools_Meetings_Tile
         /**
          * @todo set the post type and the section key that you created in the dt_details_additional_tiles() function
          */?>
-                <button id="disciple_tools_create_meetings-button" class="button"><?php esc_html_e( 'Create A Meeting', 'disciple-tools-meetings' ) ?></button>
+          <? render_field_for_display( 'meetings', $post_type_fields, $this_post, true ); ?>
+
+          <button id="disciple_tools_create_meetings-button" class="button"><?php esc_html_e( 'Create A Meeting', 'disciple-tools-meetings' ) ?></button>
             <!-- </div> -->
 <style>
-    .groups-template-default #disciple_tools_meetings-tile .section-body * {
+    .groups-template-default #disciple_tools_meetings-tile .section-body .date, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_topic, .groups-template-default #disciple_tools_meetings-tile .section-body #meeting_notes, .groups-template-default #disciple_tools_meetings-tile .section-body .select-field, .groups-template-default #disciple_tools_meetings-tile .section-body #contact_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #contacts_connection, #disciple_tools_meetings-tile .section-body .section-subheader {
         display: none;
-    }
-    .groups-template-default #disciple_tools_meetings-tile .section-body button {
-        display: initial;
     }
 </style>
             <script>
@@ -296,7 +296,8 @@ class Disciple_Tools_Meetings_Tile
                     meetingFields.contacts.values = attendeesArray;
 
                     window.API.create_post('meetings', meetingFields).then((newMeeting)=>{
-
+                        //close modal
+                        $('#create-meeting-modal').foundation('close');
                         //clear inputs
                         document.querySelector("#disciple_tools_meeting_topic").value = "";
                         document.querySelector("#disciple_tools_meeting_date").value = "";
@@ -304,12 +305,6 @@ class Disciple_Tools_Meetings_Tile
                         document.querySelector("#disciple_tools_meeting_notes").value = "";
                         document.querySelectorAll('.attendeeCheckbox').forEach((attendee) => { attendee.checked = false; })
 
-                        //Add Meetings to list in the meetings Tile
-                        let template = `<a href="${newMeeting.permalink}" class="disciple_tools_meeting_link"><img class="dt-icon" ${ newMeeting.status.key === 'answered' ? `style=opacity:0.35` : '' } src="<?php echo esc_html( plugin_dir_url( __FILE__ ) ) ?>/praying-hands.svg"> ${ newMeeting.name }${ newMeeting.status.key === 'answered' ? ` - ${ newMeeting.status.label }` : '' }</a><br>`;
-
-                        document.querySelector('#connected_meetings').insertAdjacentHTML('beforeend', template);
-                        document.querySelector("#disciple_tools_meetings_date").value = "";
-                        document.querySelector("#disciple_tools_meeting_topic").value = "";
                     });
                 });
             </script>
