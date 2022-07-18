@@ -141,6 +141,9 @@ class Disciple_Tools_Meetings_Tile
 
             <div class="reveal" id="create-meeting-modal" data-reveal data-reset-on-close>
             <h3 class="section-header"><?php  esc_html_e( "Create A Meetings", 'disciple-tools-meetings' ) ?></h3>
+
+                <div class="section-subheader"><?php esc_html_e( "Who Attended the Meeting?", 'disciple-tools-meetings' ) ?></div>
+
                 <div class="cell small-12 medium-4">
                     <div class="members-section" style="margin-bottom:10px">
                     <div class="attendee-checklist">
@@ -162,11 +165,15 @@ class Disciple_Tools_Meetings_Tile
                 <div class="section-subheader"><?php esc_html_e( "Meeting Notes", 'disciple-tools-meetings' ) ?></div>
                 <textarea id="disciple_tools_meeting_notes" class="textarea"></textarea>
 
-                <div class="section-subheader"><?php esc_html_e( "Meeting Type", 'disciple-tools-meetings' ) ?></div>
-                <select class="" id="disciple_tools_meeting_type" style="">
-                    <option value="default">Default</option> <!-- NEEDS RENDERED SERVER SIDE -->
-                    <option value="default2">Default2</option> <!-- NEEDS RENDERED SERVER SIDE -->
-
+                <select class="" id="disciple_tools_meeting_type">
+                    <?php if ( !isset( $post_type_fields['fields']['type']["default"]["none"] ) && empty( $post_type_fields['fields']['type']["select_cannot_be_empty"] ) ) : ?>
+                        <option value="" <?php echo esc_html( !isset( $post[$field_key] ) ?: "selected" ) ?>></option>
+                    <?php endif; ?>
+                    <?php foreach ( $post_type_fields['fields']['type']["default"] as $option_key => $option_value ):?>
+                        <option value="<?php echo esc_html( $option_key )?>">
+                            <?php echo esc_html( $option_value["label"] ) ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
 
                 <button id="disciple_tools_add_meetings-button" class="button"><?php esc_html_e( 'Add A Meeting', 'disciple-tools-meetings' ) ?></button>
