@@ -130,8 +130,12 @@ class Disciple_Tools_Meetings_Base  {
                 "select_cannot_be_empty" => true,
                 "default" => apply_filters("disciple_tools_meetings_types", [
                         "default" => [
-                            "label" => __( 'Default', 'disciple_tools_meetings' ),
-                            "description" => __( 'General purpose', 'disciple_tools_meetings' )
+                            "label" => __( 'In Person Meeting', 'disciple_tools_meetings' ),
+                            "description" => __( 'Face to Face Meeting', 'disciple_tools_meetings' )
+                        ],
+                        "online" => [
+                            "label" => __( 'Online Meeting', 'disciple_tools_meetings' ),
+                            "description" => __( 'Online Audio or Video Call', 'disciple_tools_meetings' )
                         ]
                     ]
                 ),
