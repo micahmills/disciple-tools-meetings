@@ -29,7 +29,7 @@ class Disciple_Tools_Meetings_Tile
      * @return mixed
      */
     public function dt_details_additional_tiles( $tiles, $post_type = "" ) {
-        if ( $post_type === "groups" || $post_type === "meetings"){
+        if ( $post_type === "groups" || $post_type === "meetings" ){
             $tiles["disciple_tools_meetings"] = [ "label" => __( "Meetings", 'disciple-tools-meetings' ) ];
         }
         return $tiles;
@@ -140,7 +140,7 @@ class Disciple_Tools_Meetings_Tile
 
 
             <div class="reveal" id="create-meeting-modal" data-reveal data-reset-on-close>
-            <h3 class="section-header"><?php  esc_html_e( "Create A Meetings", 'disciple-tools-meetings' ) ?></h3>
+            <h3 class="section-header"><?php esc_html_e( "Create A Meetings", 'disciple-tools-meetings' ) ?></h3>
 
                 <div class="section-subheader"><?php esc_html_e( "Who Attended the Meeting?", 'disciple-tools-meetings' ) ?></div>
 
