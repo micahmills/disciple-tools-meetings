@@ -18,13 +18,13 @@ jobs:
 
       # - name: Run test suite
       #   run: composer run-script test
-      # cp -r disciple-tools-plugin-starter-template.php includes languages spinner.svg version-control.json LICENSE SECURITY.md disciple-tools-plugin-starter-template/
+      # cp -r disciple-tools-meetings.php includes languages spinner.svg version-control.json LICENSE SECURITY.md disciple-tools-meetings/
       # Below borrowed from https://github.com/actions/upload-release-asset
       - name: Build project
         run: |
-          mkdir disciple-tools-plugin-starter-template
-          cp -r disciple-tools-plugin-starter-template.php admin charts languages magic-link post-type rest-api site-link tile workflows spinner.svg version-control.json LICENSE SECURITY.md disciple-tools-plugin-starter-template/
-          zip -r disciple-tools-plugin-starter-template.zip disciple-tools-plugin-starter-template
+          mkdir disciple-tools-meetings
+          cp -r disciple-tools-meetings.php admin charts languages magic-link post-type rest-api site-link tile workflows spinner.svg version-control.json LICENSE SECURITY.md disciple-tools-meetings/
+          zip -r disciple-tools-meetings.zip disciple-tools-meetings
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
