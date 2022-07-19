@@ -1,7 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class Disciple_Tools_Plugin_Starter_Template_Endpoints
+class Disciple_Tools_Meetings_Endpoints
 {
     /**
      * @todo Set the permissions your endpoint needs
@@ -60,4 +60,4 @@ class Disciple_Tools_Plugin_Starter_Template_Endpoints
         return $pass;
     }
 }
-Disciple_Tools_Plugin_Starter_Template_Endpoints::instance();
+Disciple_Tools_Meetings_Endpoints::instance();

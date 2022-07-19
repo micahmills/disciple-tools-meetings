@@ -8,7 +8,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
  * @see https://zume.vision/maps/
  * These Zume maps are driven via a magic link from a Disciple Tools system.
  */
-class Disciple_Tools_Plugin_Starter_Template_Magic_Map_App extends DT_Magic_Url_Base
+class Disciple_Tools_Meetings_Magic_Map_App extends DT_Magic_Url_Base
 {
     public $magic = false;
     public $parts = false;
@@ -314,4 +314,4 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Map_App extends DT_Magic_Url_
 
 
 }
-Disciple_Tools_Plugin_Starter_Template_Magic_Map_App::instance();
+Disciple_Tools_Meetings_Magic_Map_App::instance();

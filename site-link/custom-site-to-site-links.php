@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
  * Configures the site link system for the network reporting
  */
 
-class Disciple_Tools_Plugin_Starter_Template_Site_Links {
-    public $type = 'disciple_tools_plugin_starter_template';
+class Disciple_Tools_Meetings_Site_Links {
+    public $type = 'disciple_tools_meetings';
 
     private static $_instance = null;
     public static function instance() {
@@ -37,5 +37,5 @@ class Disciple_Tools_Plugin_Starter_Template_Site_Links {
         return $type;
     }
 }
-Disciple_Tools_Plugin_Starter_Template_Site_Links::instance();
+Disciple_Tools_Meetings_Site_Links::instance();
 

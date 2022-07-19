@@ -3,9 +3,9 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 
 /**
- * Class Disciple_Tools_Plugin_Starter_Template_Magic_User_App
+ * Class Disciple_Tools_Meetings_Magic_User_App
  */
-class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url_Base {
+class Disciple_Tools_Meetings_Magic_User_App extends DT_Magic_Url_Base {
 
     public $page_title = 'Starter - Magic Links - User App';
     public $page_description = 'User App - Magic Links.';
@@ -355,4 +355,4 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
         return $data;
     }
 }
-Disciple_Tools_Plugin_Starter_Template_Magic_User_App::instance();
+Disciple_Tools_Meetings_Magic_User_App::instance();
