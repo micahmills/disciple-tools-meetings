@@ -102,7 +102,7 @@ class Disciple_Tools_Meetings {
          * @todo Decide if you want to create a custom site-to-site link
          * To remove: delete the line below and remove the folder named /site-link
          */
-        require_once( 'site-link/custom-site-to-site-links.php' ); // add site to site link class and capabilities
+        // require_once( 'site-link/custom-site-to-site-links.php' ); // add site to site link class and capabilities
 
         /**
          * @todo Decide if you want to add new charts to the metrics section
@@ -157,7 +157,7 @@ class Disciple_Tools_Meetings {
          * @todo Decide if you want to create default workflows
          * To remove: delete the line below and remove the folder named /workflows
          */
-        require_once( 'workflows/workflows.php' );
+        // require_once( 'workflows/workflows.php' );
 
     }
 
