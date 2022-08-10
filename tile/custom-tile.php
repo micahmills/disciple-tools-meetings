@@ -197,13 +197,40 @@ class Disciple_Tools_Meetings_Tile
         /**
          * @todo set the post type and the section key that you created in the dt_details_additional_tiles() function
          */?>
-          <? render_field_for_display( 'meetings', $post_type_fields, $this_post, true ); ?>
-
+         <div class="section-subheader" style="display:initial"><?php esc_html_e( 'Past Meetings', 'disciple-tools-meetings' )?></div>
+        <ul class="meetings_list">
+          <?
+            foreach($this_post['meetings'] as $meeting){
+                echo "<li><a href=". $meeting['permalink'] . ">" . $meeting['post_title'] . "</a></li>";
+            }?>
+        </ul>
           <button id="disciple_tools_create_meetings-button" class="button"><?php esc_html_e( 'Create A Meeting', 'disciple-tools-meetings' ) ?></button>
             <!-- </div> -->
 <style>
-    .groups-template-default #disciple_tools_meetings-tile .section-body .date, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_topic, .groups-template-default #disciple_tools_meetings-tile .section-body #meeting_notes, .groups-template-default #disciple_tools_meetings-tile .section-body .select-field, .groups-template-default #disciple_tools_meetings-tile .section-body #contact_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #contacts_connection, #disciple_tools_meetings-tile .section-body .section-subheader {
+    .groups-template-default #disciple_tools_meetings-tile .section-body .date, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_topic, .groups-template-default #disciple_tools_meetings-tile .section-body #meeting_notes, .groups-template-default #disciple_tools_meetings-tile .section-body .select-field, .groups-template-default #disciple_tools_meetings-tile .section-body #contact_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #contacts_connection, #disciple_tools_meetings-tile .section-body .section-subheader {
         display: none;
+    }
+
+    .meetings_list {
+        flex-wrap: wrap;
+        display: flex;
+        margin-bottom: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+
+    }
+    .meetings_list li{
+        display: flex;
+        font-size: 0.875rem;
+        position: relative;
+        background: #ecf5fc;
+        border: 1px solid #c2e0ff;
+        padding: .2em .75em;
+        border-radius: 2px;
+        margin-right: 4px;
+        margin-bottom: 0.375rem;
     }
 </style>
             <script>
@@ -311,7 +338,8 @@ class Disciple_Tools_Meetings_Tile
                        document.querySelector("#disciple_tools_meeting_type").value = "";
                         document.querySelector("#disciple_tools_meeting_notes").value = "";
                         document.querySelectorAll('.attendeeCheckbox').forEach((attendee) => { attendee.checked = false; })
-
+                        let newMeeting_listItem = `<li><a href="${newMeeting.permalink}">${newMeeting.name}</a></li>`
+                        document.querySelector('.meetings_list').insertAdjacentHTML('beforeend', newMeeting_listItem);
                     });
                 });
             </script>
