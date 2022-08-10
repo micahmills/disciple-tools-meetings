@@ -135,9 +135,9 @@ class Disciple_Tools_Meetings {
          * @todo Decide if you want to add a custom admin page in the admin area
          * To remove: delete the 3 lines below and remove the folder named /admin
          */
-        if ( is_admin() ) {
-            require_once( 'admin/admin-menu-and-tabs.php' ); // adds starter admin page and section for plugin
-        }
+        // if ( is_admin() ) {
+        //     require_once( 'admin/admin-menu-and-tabs.php' ); // adds starter admin page and section for plugin
+        // }
 
         /**
          * @todo Decide if you want to support localization of your plugin
@@ -158,7 +158,6 @@ class Disciple_Tools_Meetings {
          * To remove: delete the line below and remove the folder named /workflows
          */
         // require_once( 'workflows/workflows.php' );
-
     }
 
     /**
