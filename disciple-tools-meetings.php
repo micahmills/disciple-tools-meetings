@@ -125,10 +125,10 @@ class Disciple_Tools_Meetings {
          * @todo Decide if you want to create a magic link
          * To remove: delete the line below and remove the folder named /magic-link
          */
-        require_once( 'magic-link/post-type-magic-link/magic-link-post-type.php' );
-        require_once( 'magic-link/magic-link-user-app.php' );
-        require_once( 'magic-link/magic-link-non-object.php' );
-        require_once( 'magic-link/magic-link-map.php' );
+        // require_once( 'magic-link/post-type-magic-link/magic-link-post-type.php' );
+        // require_once( 'magic-link/magic-link-user-app.php' );
+        // require_once( 'magic-link/magic-link-non-object.php' );
+        // require_once( 'magic-link/magic-link-map.php' );
 //        require_once( 'magic-link/magic-link-home.php' );
 
         /**
