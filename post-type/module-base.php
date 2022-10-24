@@ -207,7 +207,7 @@ class Disciple_Tools_Meetings_Base  {
                 "type" => "connection",
                 "p2p_direction" => "to",
                 "post_type" => "meetings",
-                "tile" => "disciple_tools_meetings",
+                "tile" => "other",
                 "p2p_key" => "meetings_to_contacts"
             ];
 
@@ -216,7 +216,7 @@ class Disciple_Tools_Meetings_Base  {
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "meetings",
-                "tile" => "disciple_tools_meetings",
+                "tile" => "other",
                 "p2p_key" => "meetings_to_leaders"
             ];
         }
