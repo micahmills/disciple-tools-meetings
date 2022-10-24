@@ -52,6 +52,10 @@ class Disciple_Tools_Meetings_Base  {
 
     public function after_setup_theme(){
         if ( class_exists( 'Disciple_Tools_Post_Type_Template' ) ) {
+
+            $this->single_name = __( "Meeting", 'disciple_tools_meetings' );
+            $this->plural_name = __( "Meetings", 'disciple_tools_meetings' );
+
             new Disciple_Tools_Post_Type_Template( $this->post_type, $this->single_name, $this->plural_name );
         }
     }
@@ -100,20 +104,154 @@ class Disciple_Tools_Meetings_Base  {
     public function dt_custom_fields_settings( $fields, $post_type ){
         if ( $post_type === $this->post_type ){
             $fields["date"] = [
-                "name" => "Date",
+                "name" => __( "Date", 'disciple-tools-meetings' ),
                 "type" => "date",
-                "tile" => "details",
+                "tile" => "disciple_tools_meetings",
                 "in_create_form" => true
             ];
+            $fields['meetings_topic'] = [
+                'name'        => __( 'Meeting Topic', 'disciple-tools-meetings' ),
+                'description' => _x( 'Topics discussed in the meeting', 'disciple-tools-meetings' ),
+                'type'        => 'text',
+                'default'     => '',
+                'tile' => 'disciple_tools_meetings',
+                'icon' => get_template_directory_uri() . '/dt-assets/images/edit.svg',
+            ];
             $fields["meeting_notes"] = [
-                "name" => "Meeting Notes",
+                "name" => __( 'Meeting Notes', 'disciple-tools-meetings' ),
                 "type" => "textarea",
-                "tile" => "details",
+                "tile" => "disciple_tools_meetings",
             ];
             $fields['type'] = [
-                "name" => "Meeting Type",
+                "name" => __( "Meeting Type", 'disciple-tools-meetings' ),
                 "type" => "key_select",
+                "tile" => "disciple_tools_meetings",
+                "in_create_form" => true,
+                "select_cannot_be_empty" => true,
+                "default" => apply_filters("disciple_tools_meetings_types", [
+                        "default" => [
+                            "label" => __( 'In Person Meeting', 'disciple_tools_meetings' ),
+                            "description" => __( 'Face to Face Meeting', 'disciple_tools_meetings' )
+                        ],
+                        "online" => [
+                            "label" => __( 'Online Meeting', 'disciple_tools_meetings' ),
+                            "description" => __( 'Online Audio or Video Call', 'disciple_tools_meetings' )
+                        ]
+                    ]
+                ),
+            ];
+            $fields["contacts"] = [
+                "name" => __( "Attendees", 'disciple-tools-meetings' ),
+                "type" => "connection",
+                "p2p_direction" => "from",
+                "post_type" => "contacts",
+                "tile" => "disciple_tools_meetings",
+                "p2p_key" => "meetings_to_contacts",
+            ];
+            $fields['assigned_to'] = [
+                'name'        => __( "Assigned To", 'disciple-tools-meetings' ),
+                'type'        => 'user_select',
+                'default'     => '',
+                'tile'        => 'status',
+                'icon' => get_template_directory_uri() . "/dt-assets/images/assigned-to.svg?v=2",
+                "show_in_table" => 25,
+                "custom_display" => false,
+                "in_create_form" => true
+            ];
+            $fields['leaders'] = [
+                "name" => __( "Leaders", 'disciple-tools-meetings' ),
+                "type" => "connection",
+                "p2p_direction" => "to",
+                "post_type" => "contacts",
+                "tile" => "status",
+                "p2p_key" => "meetings_to_leaders"
+            ];
+            $fields["groups"] = [
+                "name" => __( "Group", 'disciple-tools-meetings' ),
+                "type" => "connection",
+                "p2p_direction" => "from",
+                "post_type" => "groups",
                 "tile" => "details",
+                "p2p_key" => "meetings_to_groups"
+            ];
+            $fields['tags'] = [
+                'name'        => __( 'Tags', 'disciple_tools' ),
+                'description' => _x( 'A useful way to group related items and can help group contacts associated with noteworthy characteristics. e.g. business owner, sports lover. The contacts can also be filtered using these tags.', 'Optional Documentation', 'disciple_tools' ),
+                'type'        => 'tags',
+                'default'     => [],
+                'tile'        => 'disciple_tools_meetings',
+                'icon' => get_template_directory_uri() . "/dt-assets/images/tag.svg",
+            ];
+
+            // $fields['disciple_tools_meetings_date'] = [
+            //     'name'        => __( 'Meeting Date', 'disciple-tools-meetings' ),
+            //     'description' => _x( 'Date of the meeting', 'Optional Documentation', 'disciple-tools-meetings' ),
+            //     'type'        => 'date',
+            //     'default'     => '',
+            //     'tile' => 'disciple_tools_meetings',
+            //     'icon' => get_template_directory_uri() . '/dt-assets/images/edit.svg',
+            // ];
+            $fields['disciple_tools_meetings_attendees'] = [
+                "name" => __( 'Meeting Attendee List', 'disciple_tools' ),
+                'description' => _x( 'The members who are attended this meeting.', 'Optional Documentation', 'disciple-tools-meetings' ),
+                "type" => "connection",
+                "post_type" => "contacts",
+                "p2p_direction" => "to",
+                "p2p_key" => "contacts_to_meeting",
+                "icon" => get_template_directory_uri() . '/dt-assets/images/list.svg?v=2',
+            ];
+        }
+        if ( $post_type === "contacts" ){
+            $fields["meetings"] = [
+                "name" => __( "Meetings", 'disciple-tools-meetings' ),
+                "type" => "connection",
+                "p2p_direction" => "to",
+                "post_type" => "meetings",
+                "tile" => "other",
+                "p2p_key" => "meetings_to_contacts"
+            ];
+
+            $fields['meetings_led'] = [
+                "name" => __( "Leader of meetings", 'disciple-tools-meetings' ),
+                "type" => "connection",
+                "p2p_direction" => "from",
+                "post_type" => "meetings",
+                "tile" => "other",
+                "p2p_key" => "meetings_to_leaders"
+            ];
+        }
+        if ( $post_type === "groups" ){
+            $fields["meetings"] = [
+                "name" => __( "Meetings", 'disciple-tools-meetings' ),
+                "type" => "connection",
+                "p2p_direction" => "to",
+                "post_type" => "meetings",
+                "tile" => "disciple_tools_meetings",
+                "p2p_key" => "meetings_to_groups"
+            ];
+            $fields["date"] = [
+                "name" => __( "Meetings Date", 'disciple-tools-meetings' ),
+                "type" => "date",
+                "tile" => "disciple_tools_meetings",
+                "in_create_form" => true
+            ];
+            $fields['meetings_topic'] = [
+                'name'        => __( 'Meeting Topic', 'disciple-tools-meetings' ),
+                'description' => _x( 'Topics discussed in the meeting', 'disciple-tools-meetings' ),
+                'type'        => 'text',
+                'default'     => '',
+                'tile' => 'disciple_tools_meetings',
+                'icon' => get_template_directory_uri() . '/dt-assets/images/edit.svg',
+            ];
+            $fields["meeting_notes"] = [
+                "name" => __( 'Meeting Notes', 'disciple-tools-meetings' ),
+                "type" => "textarea",
+                "tile" => "disciple_tools_meetings",
+            ];
+            $fields['type'] = [
+                "name" => __( "Meetings Type", 'disciple-tools-meetings' ),
+                "type" => "key_select",
+                "tile" => "disciple_tools_meetings",
                 "in_create_form" => true,
                 "select_cannot_be_empty" => true,
                 "default" => apply_filters("disciple_tools_meetings_types", [
@@ -125,75 +263,12 @@ class Disciple_Tools_Meetings_Base  {
                 ),
             ];
             $fields["contacts"] = [
-                "name" => "Contacts",
+                "name" => __( "Attendees", 'disciple-tools-meetings' ),
                 "type" => "connection",
                 "p2p_direction" => "from",
                 "post_type" => "contacts",
-                "tile" => "other",
+                "tile" => "disciple_tools_meetings",
                 "p2p_key" => "meetings_to_contacts",
-            ];
-            $fields['assigned_to'] = [
-                'name'        => 'Assigned To',
-                'type'        => 'user_select',
-                'default'     => '',
-                'tile'        => 'status',
-                'icon' => get_template_directory_uri() . "/dt-assets/images/assigned-to.svg?v=2",
-                "show_in_table" => 25,
-                "custom_display" => false,
-                "in_create_form" => true
-            ];
-            $fields['leaders'] = [
-                "name" => "Leaders",
-                "type" => "connection",
-                "p2p_direction" => "to",
-                "post_type" => "contacts",
-                "tile" => "status",
-                "p2p_key" => "meetings_to_leaders"
-            ];
-            $fields["groups"] = [
-                "name" => "Groups",
-                "type" => "connection",
-                "p2p_direction" => "from",
-                "post_type" => "groups",
-                "tile" => "other",
-                "p2p_key" => "meetings_to_groups"
-            ];
-            $fields['tags'] = [
-                'name'        => __( 'Tags', 'disciple_tools' ),
-                'description' => _x( 'A useful way to group related items and can help group contacts associated with noteworthy characteristics. e.g. business owner, sports lover. The contacts can also be filtered using these tags.', 'Optional Documentation', 'disciple_tools' ),
-                'type'        => 'tags',
-                'default'     => [],
-                'tile'        => 'other',
-                'icon' => get_template_directory_uri() . "/dt-assets/images/tag.svg",
-            ];
-        }
-        if ( $post_type === "contacts" ){
-            $fields["meetings"] = [
-                "name" => "Meetings",
-                "type" => "connection",
-                "p2p_direction" => "to",
-                "post_type" => "meetings",
-                "tile" => "other",
-                "p2p_key" => "meetings_to_contacts"
-            ];
-
-            $fields['meetings_led'] = [
-                "name" => "Leader of meetings",
-                "type" => "connection",
-                "p2p_direction" => "from",
-                "post_type" => "meetings",
-                "tile" => "other",
-                "p2p_key" => "meetings_to_leaders"
-            ];
-        }
-        if ( $post_type === "groups" ){
-            $fields["meetings"] = [
-                "name" => "Meetings",
-                "type" => "connection",
-                "p2p_direction" => "to",
-                "post_type" => "meetings",
-                "tile" => "other",
-                "p2p_key" => "meetings_to_groups"
             ];
         }
 

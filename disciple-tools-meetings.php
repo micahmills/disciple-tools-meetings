@@ -18,6 +18,7 @@
  *          https://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
@@ -75,14 +76,35 @@ class Disciple_Tools_Meetings {
     }
 
     private function __construct() {
+        $is_rest = dt_is_rest();
 
         require_once( 'post-type/loader.php' ); // add starter post type extension to Disciple.Tools system
+
+        require_once( 'tile/custom-tile.php' ); // add custom tile
 
         $this->i18n();
 
 
+        if ( is_admin() ) { // adds links to the plugin description area in the plugin admin list.
+            add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
+        }
+
     }
 
+    /**
+     * Filters the array of row meta for each/specific plugin in the Plugins list table.
+     * Appends additional links below each/specific plugin on the plugins page.
+     */
+    public function plugin_description_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
+        if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
+            // You can still use `array_unshift()` to add links at the beginning.
+
+            $links_array[] = '<a href="https://disciple.tools">Disciple.Tools Community</a>'; // @todo replace with your links.
+            // @todo add other links here
+        }
+
+        return $links_array;
+    }
 
     /**
      * Method that runs only when the plugin is activated.
@@ -218,6 +240,7 @@ if ( ! function_exists( "dt_hook_ajax_notice_handler" ) ){
         }
     }
 }
+
 
 /**
  * Check for plugin updates even when the active theme is not Disciple.Tools
