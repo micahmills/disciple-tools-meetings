@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-meetings.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-meetings)
+![Build Status](https://github.com/DiscipleTools/disciple-tools-meetings/actions/workflows/ci.yml/badge.svg?branch=master)
 
 ![Plugin Banner](https://raw.githubusercontent.com/DiscipleTools/disciple-tools-meetings/0f67173d4c40db73b3e6b2fb115ddaa1df4b6506/meetings-banner.png)
 # Disciple.Tools - Meetings
