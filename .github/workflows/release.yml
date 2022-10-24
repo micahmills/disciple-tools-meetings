@@ -23,7 +23,7 @@ jobs:
       - name: Build project
         run: |
           mkdir disciple-tools-meetings
-          cp -r disciple-tools-meetings.php admin charts languages magic-link post-type rest-api site-link tile workflows spinner.svg version-control.json LICENSE SECURITY.md disciple-tools-meetings/
+          cp -r disciple-tools-meetings.php languages post-type tile spinner.svg version-control.json LICENSE SECURITY.md disciple-tools-meetings/
           zip -r disciple-tools-meetings.zip disciple-tools-meetings
       - name: Create Release
         id: create_release
