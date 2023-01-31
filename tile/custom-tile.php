@@ -13,7 +13,6 @@ class Disciple_Tools_Meetings_Tile
 
     public function __construct(){
         add_filter( 'dt_details_additional_tiles', [ $this, "dt_details_additional_tiles" ], 10, 2 );
-        add_filter( "dt_custom_fields_settings", [ $this, "dt_custom_fields" ], 20, 2 );
         add_action( "dt_details_additional_section", [ $this, "dt_add_section" ], 10, 2 );
         add_action( "dt_details_additional_section", [ $this, "dt_add_meeting_submit" ], 21, 2 );
     }
@@ -35,86 +34,6 @@ class Disciple_Tools_Meetings_Tile
         return $tiles;
     }
 
-    /**
-     * @param array $fields
-     * @param string $post_type
-     * @return array
-     */
-    public function dt_custom_fields( array $fields, string $post_type = "" ) {
-        /**
-         * @todo set the post type
-         */
-        // if ( $post_type === "groups" || $post_type === "meetings" ){
-        //     /**
-        //      * @todo Add the fields that you want to include in your tile.
-        //      *
-        //      * Examples for creating the $fields array
-        //      * Contacts
-        //      * @link https://github.com/DiscipleTools/disciple-tools-theme/blob/256c9d8510998e77694a824accb75522c9b6ed06/dt-contacts/base-setup.php#L108
-        //      *
-        //      * Groups
-        //      * @link https://github.com/DiscipleTools/disciple-tools-theme/blob/256c9d8510998e77694a824accb75522c9b6ed06/dt-groups/base-setup.php#L83
-        //      */
-
-        //     /**
-        //      * This is an example of a text field
-        //      */
-        //     // $fields['disciple_tools_meetings_attendees'] = [
-        //     //     "name" => __( 'Meeting Attendee List', 'disciple_tools' ),
-        //     //     'description' => _x( 'The members who are attended this meeting.', 'Optional Documentation', 'disciple-tools-meetings' ),
-        //     //     "type" => "connection",
-        //     //     "post_type" => "contacts",
-        //     //     "p2p_direction" => "to",
-        //     //     "p2p_key" => "contacts_to_meeting",
-        //     //     "icon" => get_template_directory_uri() . '/dt-assets/images/list.svg?v=2',
-        //     // ];
-        //     /**
-        //      * This is an example of a multiselect field
-        //      */
-        //     // $fields["disciple_tools_meetings_multiselect"] = [
-        //     //     "name" => __( 'Multiselect', 'disciple-tools-meetings' ),
-        //     //     "default" => [
-        //     //         "one" => [ "label" => __( "One", 'disciple-tools-meetings' ) ],
-        //     //         "two" => [ "label" => __( "Two", 'disciple-tools-meetings' ) ],
-        //     //         "three" => [ "label" => __( "Three", 'disciple-tools-meetings' ) ],
-        //     //         "four" => [ "label" => __( "Four", 'disciple-tools-meetings' ) ],
-        //     //     ],
-        //     //     "tile" => "disciple_tools_meetings",
-        //     //     "type" => "multi_select",
-        //     //     "hidden" => false,
-        //     //     'icon' => get_template_directory_uri() . '/dt-assets/images/edit.svg',
-        //     // ];
-        //     /**
-        //      * This is an example of a key select field
-        //      */
-        //     // $fields["disciple_tools_meetings_keyselect"] = [
-        //     //     'name' => "Key Select",
-        //     //     'type' => 'key_select',
-        //     //     "tile" => "disciple_tools_meetings",
-        //     //     'default' => [
-        //     //         'first'   => [
-        //     //             "label" => _x( 'First', 'Key Select Label', 'disciple-tools-meetings' ),
-        //     //             "description" => _x( "First Key Description", "Training Status field description", 'disciple-tools-meetings' ),
-        //     //             'color' => "#ff9800"
-        //     //         ],
-        //     //         'second'   => [
-        //     //             "label" => _x( 'Second', 'Key Select Label', 'disciple-tools-meetings' ),
-        //     //             "description" => _x( "Second Key Description", "Training Status field description", 'disciple-tools-meetings' ),
-        //     //             'color' => "#4CAF50"
-        //     //         ],
-        //     //         'third'   => [
-        //     //             "label" => _x( 'Third', 'Key Select Label', 'disciple-tools-meetings' ),
-        //     //             "description" => _x( "Third Key Description", "Training Status field description", 'disciple-tools-meetings' ),
-        //     //             'color' => "#366184"
-        //     //         ],
-        //     //     ],
-        //     //     'icon' => get_template_directory_uri() . '/dt-assets/images/edit.svg',
-        //     //     "default_color" => "#366184",
-        //     //     "select_cannot_be_empty" => true
-        //     // ];
-        // }
-        return $fields;
-    }
 
     public function dt_add_section( $section, $post_type ) {
         /**
@@ -153,7 +72,7 @@ class Disciple_Tools_Meetings_Tile
 
                 <div class="section-subheader"><?php esc_html_e( "Meeting Date", 'disciple-tools-meetings' ) ?></div>
                 <div class="disciple_tools_meeting_date input-group">
-                    <input id="disciple_tools_meeting_date" class="input-group-field dt_date_picker" type="text" autocomplete="off" value="">
+                    <input id="disciple_tools_meeting_date" class="input-group-field dt_date_picker meeting_date" type="text" autocomplete="off" value="">
                     <div class="input-group-button">
                         <button id="disciple_tools_meeting_date-clear-button" class="button alert clear-date-button" data-inputid="disciple_tools_meeting_date" title="Delete Date" type="button">x</button>
                     </div>
@@ -166,9 +85,6 @@ class Disciple_Tools_Meetings_Tile
                 <textarea id="disciple_tools_meeting_notes" class="textarea"></textarea>
 
                 <select class="" id="disciple_tools_meeting_type">
-                    <?php if ( !isset( $post_type_fields['fields']['type']["default"]["none"] ) && empty( $post_type_fields['fields']['type']["select_cannot_be_empty"] ) ) : ?>
-                        <option value="" <?php echo esc_html( !isset( $post[$field_key] ) ?: "selected" ) ?>></option>
-                    <?php endif; ?>
                     <?php foreach ( $post_type_fields['fields']['type']["default"] as $option_key => $option_value ):?>
                         <option value="<?php echo esc_html( $option_key )?>">
                             <?php echo esc_html( $option_value["label"] ) ?>
@@ -206,38 +122,38 @@ class Disciple_Tools_Meetings_Tile
         </ul>
           <button id="disciple_tools_create_meetings-button" class="button"><?php esc_html_e( 'Create A Meeting', 'disciple-tools-meetings' ) ?></button>
             <!-- </div> -->
-<style>
-    .groups-template-default #disciple_tools_meetings-tile .section-body .date, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_topic, .groups-template-default #disciple_tools_meetings-tile .section-body #meeting_notes, .groups-template-default #disciple_tools_meetings-tile .section-body .select-field, .groups-template-default #disciple_tools_meetings-tile .section-body #contact_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #contacts_connection, #disciple_tools_meetings-tile .section-body .section-subheader {
-        display: none;
-    }
+            <style>
+                .groups-template-default #disciple_tools_meetings-tile .section-body .date, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #meetings_topic, .groups-template-default #disciple_tools_meetings-tile .section-body #meeting_notes, .groups-template-default #disciple_tools_meetings-tile .section-body .select-field, .groups-template-default #disciple_tools_meetings-tile .section-body #contact_connection, .groups-template-default #disciple_tools_meetings-tile .section-body #contacts_connection, #disciple_tools_meetings-tile .section-body .section-subheader {
+                    display: none;
+                }
 
-    .meetings_list {
-        flex-wrap: wrap;
-        display: flex;
-        margin-bottom: 1rem;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
+                .meetings_list {
+                    flex-wrap: wrap;
+                    display: flex;
+                    margin-bottom: 1rem;
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding: 0.75rem;
+                    border: 1px solid #ccc;
 
-    }
-    .meetings_list li{
-        display: flex;
-        font-size: 0.875rem;
-        position: relative;
-        background: #ecf5fc;
-        border: 1px solid #c2e0ff;
-        padding: .2em .75em;
-        border-radius: 2px;
-        margin-right: 4px;
-        margin-bottom: 0.375rem;
-    }
-</style>
+                }
+                .meetings_list li{
+                    display: flex;
+                    font-size: 0.875rem;
+                    position: relative;
+                    background: #ecf5fc;
+                    border: 1px solid #c2e0ff;
+                    padding: .2em .75em;
+                    border-radius: 2px;
+                    margin-right: 4px;
+                    margin-bottom: 0.375rem;
+                }
+            </style>
             <script>
                 //Initialize Date Picker so it doesn't update the current post.
                 function date_picker_init(is_bulk = false, bulk_id = 0) {
                     // Determine field class name to be used.
-                    let field_class = (!is_bulk) ? `.dt_date_picker` : `.dt_date_picker-${bulk_id}`;
+                    let field_class = (!is_bulk) ? `.meeting_date.dt_date_picker` : `.dt_date_picker-${bulk_id}`;
 
                     // Assign on click listener.
                     $(field_class).datepicker({
